@@ -15,7 +15,7 @@ int factor(int a) {
 }
 
 
-matris::matris(int r, int c) {	//matrix[satýr][sütun]
+matrixClass::matrixClass(int r, int c) {	//matrix[satýr][sütun]
 	row = r;
 	col = c;
 	
@@ -27,7 +27,7 @@ matris::matris(int r, int c) {	//matrix[satýr][sütun]
 	}
 }
 
-matris::~matris() {
+matrixClass::~matrixClass() {
 	for (int i = 0; i < row; i++)
 	{
 		delete[]matrix[i];
@@ -35,7 +35,7 @@ matris::~matris() {
 	delete[]matrix;
 }
 
-matris::matris(const matris& oth) {
+matrixClass::matrixClass(const matrixClass& oth) {
 	row = oth.row;
 	col = oth.col;
 
@@ -56,15 +56,15 @@ matris::matris(const matris& oth) {
 	}
 }
 
-int matris::getRow() { return row; }
+int matrixClass::getRow() { return row; }
 
-int matris::getCol() { return col; }
+int matrixClass::getCol() { return col; }
 
-void matris::setValue(int r, int c, int value) {
+void matrixClass::setValue(int r, int c, int value) {
 	matrix[row][col] = value;
 }
 
-void matris::randomSet() {
+void matrixClass::randomSet() {
 	srand(time(0));
 	for (int i = 0; i < row; i++)
 	{
@@ -75,7 +75,7 @@ void matris::randomSet() {
 	}
 }
 
-void matris::birimMatrisYap() {
+void matrixClass::birimMatrisYap() {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
@@ -86,7 +86,7 @@ void matris::birimMatrisYap() {
 	}
 }
 
-void matris::display() {
+void matrixClass::display() {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
@@ -99,7 +99,7 @@ void matris::display() {
 	cout << endl;
 }
 
-void matris::addMatris(matris& othMatris) {
+void matrixClass::addMatris(matrixClass& othMatris) {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
@@ -109,7 +109,7 @@ void matris::addMatris(matris& othMatris) {
 	}
 }
 
-void matris::skalerCarp(int skaler) {
+void matrixClass::skalarMultiply(int skaler) {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
@@ -119,7 +119,7 @@ void matris::skalerCarp(int skaler) {
 	}
 }
 
-void matris::transpoz() {
+void matrixClass::transpoz() {
 
 	//matrix 'i baþka bir matrise geçici olarak kopyalýyorum
 	int** tempMatrix=NULL;
@@ -152,7 +152,7 @@ void matris::transpoz() {
 	delete[]tempMatrix;
 }
 
-void matris::matrisCarp(matris& othMatris) {
+void matrixClass::matrixMultiply(matrixClass& othMatris) {
 
 	//matrix 'i baþka bir matrise geçici olarak kopyalýyorum
 	int** tempMatrix = NULL;
@@ -189,17 +189,17 @@ void matris::matrisCarp(matris& othMatris) {
 	delete[]tempMatrix;
 }
 
-unsigned long long int matris::kofaktorHesapla(matris* m, int r, int c) {
-	return minorHesapla(m, r, c) * pow((-1), r+1 + c);
+unsigned long long int matrixClass::Cofactor(matrixClass* m, int r, int c) {
+	return calculateMinor(m, r, c) * pow((-1), r+1 + c);
 }
 
-int matris::determinant() {
+int matrixClass::determinant() {
 	if (row != col) return -1;
-	if (row <= 3) return sarrusDetHesapla(matrix, row, col);
+	if (row <= 3) return sarrusDeterminant(matrix, row, col);
 
 
 	else {
-		matris tempMat(row, row);
+		matrixClass tempMat(row, row);
 		int a = 0, b = 0;	//geçici matrisin boyutlarý
 		for (int i = 0; i < row; i++)
 		{
@@ -210,12 +210,12 @@ int matris::determinant() {
 		a++;
 		if (b >= row)b = 0;
 		}
-		return determinantHesapla(&tempMat);
+		return calculateDeterminant(&tempMat);
 	}
 }
 
 
-int matris::sarrusDetHesapla(int** m, int _row, int _col) {
+int matrixClass::sarrusDeterminant(int** m, int _row, int _col) {
 
 	if (_row > 3 || _col > 3) {
 		cout << "sarrus det. error";
@@ -257,16 +257,16 @@ int matris::sarrusDetHesapla(int** m, int _row, int _col) {
 	return det;
 }
 
-unsigned long long int matris::minorHesapla(matris* m, int r, int c) {
+unsigned long long int matrixClass::calculateMinor(matrixClass* m, int r, int c) {
 	
 	//sýra ile recursive yapýp üst sýra minörlerini bul minör yardýmý ile det hesapla
-	matris tempMat(m->row-1,m->row-1);
-	tempMat=matrisMinor(m, r, c);
-	if (tempMat.row == 3)	return sarrusDetHesapla(tempMat.matrix,3,3);	//matris 3x3 kaldýysa direk sarrus ile det hesaplayýp return eder
+	matrixClass tempMat(m->row-1,m->row-1);
+	tempMat=matrixMinor(m, r, c);
+	if (tempMat.row == 3)	return sarrusDeterminant(tempMat.matrix,3,3);	//matris 3x3 kaldýysa direk sarrus ile det hesaplayýp return eder
 
-	// matris aþaðýdaki fonksiyona geldiðinde o da minör hesaplamak için tekrar bu fonksiyona (minorHesapla) göndericek ama bir boy daha küçük olucak
+	// matris aþaðýdaki fonksiyona geldiðinde o da minör hesaplamak için tekrar bu fonksiyona (calculateMinor) göndericek ama bir boy daha küçük olucak
 	else {
-		return determinantHesapla(&tempMat);
+		return calculateDeterminant(&tempMat);
 	}
 }
 
@@ -278,10 +278,10 @@ unsigned long long int matris::minorHesapla(matris* m, int r, int c) {
 */
 
 
-matris matris::matrisMinor(matris* m, int r, int c) {
+matrixClass matrixClass::matrixMinor(matrixClass* m, int r, int c) {
 	
 	//bir boy küçük matris nesnesi oluþturuyoruz bu sayede matris'in tüm özelliklerine ulaþabiliyoruz
-	matris* tempMat2 = new matris(m->row - 1, m->row - 1);	
+	matrixClass* tempMat2 = new matrixClass(m->row - 1, m->row - 1);	
 	int a = 0, b = 0;	//geçici matrisin boyutlarý
 	
 	for (int i = 0; i < tempMat2->row; i++)
@@ -298,11 +298,11 @@ matris matris::matrisMinor(matris* m, int r, int c) {
 	return (*tempMat2);
 }
 unsigned long long int det = 0;
-int matris::determinantHesapla(matris* m) {
+int matrixClass::calculateDeterminant(matrixClass* m) {
 	
 	for (int i = 0; i < m->row; i++)
 	{
-		det += m->kofaktorHesapla(m, 0, i) * (m->matrix[0][i]);
+		det += m->Cofactor(m, 0, i) * (m->matrix[0][i]);
 	}
 	return det;
 	

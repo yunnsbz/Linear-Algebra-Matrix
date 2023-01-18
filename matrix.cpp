@@ -9,8 +9,8 @@ using namespace std;
 int main()
 {
     
-    matris m1(5,5);
-    matris m2(3, 3);
+    matrixClass m1(5,5);
+    matrixClass m2(3, 3);
     m2.randomSet();
     m1.randomSet();
     m1.display();
