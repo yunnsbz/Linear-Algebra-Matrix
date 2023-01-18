@@ -14,7 +14,6 @@ int factor(int a) {
 	return b;
 }
 
-
 matrixClass::matrixClass(int r, int c) {	//matrix[satýr][sütun]
 	row = r;
 	col = c;
@@ -109,12 +108,12 @@ void matrixClass::addMatris(matrixClass& othMatris) {
 	}
 }
 
-void matrixClass::skalarMultiply(int skaler) {
+void matrixClass::skalarMultiply(int skalar) {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
 		{
-			matrix[i][j] *= skaler;
+			matrix[i][j] *= skalar;
 		}
 	}
 }
