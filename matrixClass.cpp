@@ -1,7 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
-#include "matrisClass.h"
+#include "matrixClass.h"
 
 using namespace std;
 

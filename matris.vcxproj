@@ -127,11 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="matris.cpp" />
-    <ClCompile Include="matrisClass.cpp" />
+    <ClCompile Include="matrix.cpp" />
+    <ClCompile Include="matrixClass.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="matrisClass.h" />
+    <ClInclude Include="matrixClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
