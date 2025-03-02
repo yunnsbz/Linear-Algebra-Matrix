@@ -133,7 +133,7 @@
     <ClCompile Include="matrixCalculations.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="matrixClass.h" />
+    <ClInclude Include="matrixCalculations.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
