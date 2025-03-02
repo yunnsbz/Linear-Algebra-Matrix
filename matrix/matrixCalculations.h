@@ -14,12 +14,12 @@ public:
 	int getCol();
 	void setValue(int r, int c, int value);		//matrisin bir satýr ve sütundaki elemanýn deðerini deðiþtir
 	void FillRandomValues();	//matrisin içini rastgele deðerler ile doldur
-	void birimMatrisYap();	//matrisi birim matrise çevir 
+	void CreateIdentityMatrix();	//matrisi birim matrise çevir 
 	void display();
-	void addMatris(MatrixCalculations& othmatris);	//iki matrisi topla
+	void addMatris(MatrixCalculations& othMatrix);	//iki matrisi topla
 	void skalarMultiply(int skaler);	//matrisi bir skaler ile çarp
 	void transpoz();	//matrisin transpozunu al
-	void matrixMultiply(MatrixCalculations& othmatris);	//iki matrisi kuralýna göre çarp
+	void matrixMultiply(MatrixCalculations& othMatrix);	//iki matrisi kuralýna göre çarp
 
 	//matris çok büyük ise küçükten baþlayarak büyüðe det alýp yap
 private:

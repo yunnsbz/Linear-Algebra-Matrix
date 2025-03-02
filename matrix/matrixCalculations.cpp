@@ -74,7 +74,7 @@ void MatrixCalculations::FillRandomValues() {
 	}
 }
 
-void MatrixCalculations::birimMatrisYap() {
+void MatrixCalculations::CreateIdentityMatrix() {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
@@ -98,12 +98,12 @@ void MatrixCalculations::display() {
 	cout << endl;
 }
 
-void MatrixCalculations::addMatris(MatrixCalculations& othMatris) {
+void MatrixCalculations::addMatris(MatrixCalculations& othMatrix) {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
 		{
-			matrix[i][j] += othMatris.matrix[i][j];
+			matrix[i][j] += othMatrix.matrix[i][j];
 		}
 	}
 }
@@ -151,7 +151,7 @@ void MatrixCalculations::transpoz() {
 	delete[]tempMatrix;
 }
 
-void MatrixCalculations::matrixMultiply(MatrixCalculations& othMatris) {
+void MatrixCalculations::matrixMultiply(MatrixCalculations& othMatrix) {
 
 	//matrix 'i baþka bir matrise geçici olarak kopyalýyorum
 	int** tempMatrix = NULL;
@@ -172,9 +172,9 @@ void MatrixCalculations::matrixMultiply(MatrixCalculations& othMatris) {
 		{
 			//komple hatalý
 			/*
-			tempMatrix[i][0] += matrix[i][j] * othMatris.matrix[j][i];
-			tempMatrix[i][1] += matrix[i][j] * othMatris.matrix[j][i ];
-			tempMatrix[i][2] += matrix[i][j] * othMatris.matrix[j][i ];
+			tempMatrix[i][0] += matrix[i][j] * othMatrix.matrix[j][i];
+			tempMatrix[i][1] += matrix[i][j] * othMatrix.matrix[j][i ];
+			tempMatrix[i][2] += matrix[i][j] * othMatrix.matrix[j][i ];
 			*/
 			cout << "hatalý fonk çalýþtý" << endl;
 		}
