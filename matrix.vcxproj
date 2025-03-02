@@ -130,7 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="matrix.cpp" />
-    <ClCompile Include="matrixClass.cpp" />
+    <ClCompile Include="matrixCalculations.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="matrixClass.h" />
