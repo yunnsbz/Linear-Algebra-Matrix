@@ -16,10 +16,10 @@ public:
 	void randomSet();	//matrisin içini rastgele deðerler ile doldur
 	void birimMatrisYap();	//matrisi birim matrise çevir 
 	void display();
-	void addMatris(matrixClass& othMatris);	//iki matrisi topla
+	void addMatris(matrixClass& othmatris);	//iki matrisi topla
 	void skalarMultiply(int skaler);	//matrisi bir skaler ile çarp
 	void transpoz();	//matrisin transpozunu al
-	void matrixMultiply(matrixClass& othMatris);	//iki matrisi kuralýna göre çarp
+	void matrixMultiply(matrixClass& othmatris);	//iki matrisi kuralýna göre çarp
 
 	//matris çok büyük ise küçükten baþlayarak büyüðe det alýp yap
 private:

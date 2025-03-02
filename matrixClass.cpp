@@ -17,7 +17,7 @@ int factor(int a) {
 matrixClass::matrixClass(int r, int c) {	//matrix[satýr][sütun]
 	row = r;
 	col = c;
-	
+
 	//yer ayýrma
 	matrix = new int* [row];
 	for (int i = 0; i < row; i++)
@@ -29,9 +29,9 @@ matrixClass::matrixClass(int r, int c) {	//matrix[satýr][sütun]
 matrixClass::~matrixClass() {
 	for (int i = 0; i < row; i++)
 	{
-		delete[]matrix[i];
+		delete[] matrix[i];
 	}
-	delete[]matrix;
+	delete[] matrix;
 }
 
 matrixClass::matrixClass(const matrixClass& oth) {
@@ -79,7 +79,7 @@ void matrixClass::birimMatrisYap() {
 	{
 		for (int j = 0; j < col; j++)
 		{
-			if(i==j)matrix[i][j] = 1;
+			if (i == j)matrix[i][j] = 1;
 			else matrix[i][j] = 0;
 		}
 	}
@@ -93,7 +93,7 @@ void matrixClass::display() {
 			//cout << matrix[i][j] << "  ";		//format yok
 			printf("%-3d", matrix[i][j]);
 		}
-		cout<<"\n";
+		cout << "\n";
 	}
 	cout << endl;
 }
@@ -121,7 +121,7 @@ void matrixClass::skalarMultiply(int skalar) {
 void matrixClass::transpoz() {
 
 	//matrix 'i baþka bir matrise geçici olarak kopyalýyorum
-	int** tempMatrix=NULL;
+	int** tempMatrix = NULL;
 	tempMatrix = new int* [row];
 	for (int i = 0; i < row; i++)
 	{
@@ -189,7 +189,7 @@ void matrixClass::matrixMultiply(matrixClass& othMatris) {
 }
 
 unsigned long long int matrixClass::Cofactor(matrixClass* m, int r, int c) {
-	return calculateMinor(m, r, c) * pow((-1), r+1 + c);
+	return calculateMinor(m, r, c) * pow((-1), r + 1 + c);
 }
 
 int matrixClass::determinant() {
@@ -206,10 +206,11 @@ int matrixClass::determinant() {
 			{
 				tempMat.matrix[a][b++] = matrix[i][j];
 			}
-		a++;
-		if (b >= row)b = 0;
+			a++;
+			if (b >= row)b = 0;
 		}
 		return calculateDeterminant(&tempMat);
+
 	}
 }
 
@@ -226,7 +227,7 @@ int matrixClass::sarrusDeterminant(int** m, int _row, int _col) {
 
 	// g = 1 det'in ilk parçasý için, aþaðýdaki döngü ikinci defa çalýþtýðýnda g -1 olur det'in ikinci parçasý için
 	int g;	//k deðerini tek tek arttýrmak yada azaltmak (deðeri -1'e eþitlenirse) için aþaðýdaki for döngüsünde kullanýlýr
-	for (g = 1; g > -2; g -= 2 )	//determinant iki ifadenin farký ile yapýlýr
+	for (g = 1; g > -2; g -= 2)	//determinant iki ifadenin farký ile yapýlýr
 	{
 		for (int j = 0; j < _row; j++)
 		{
@@ -234,14 +235,14 @@ int matrixClass::sarrusDeterminant(int** m, int _row, int _col) {
 			k = yon;	//k deðeri sýfýr yada iki
 
 			//i deðeri satýrlarý aþaðý ve yetmiyorsa tekrar yukarý çýkarýr k ise sütunlarý temsil eder baþtan sona yada sondan baþa
-			for ( ; k < _row && k >= 0; i++, k+=g)	
+			for (; k < _row && k >= 0; i++, k += g)
 			{
 
 				//i deðerini tekrar baþa alma
-				if(i>=_row){
+				if (i >= _row) {
 					i -= _row;
 				}
-				
+
 				carpimlar *= m[i][k];
 			}
 			d1 += carpimlar;
@@ -251,17 +252,18 @@ int matrixClass::sarrusDeterminant(int** m, int _row, int _col) {
 		det += d1 * g;	//g, ikinci kýsýmda -1 deðerini alýp determinant için aradaki fark iþlemini yapmýþ olur
 		d1 = 0;	//det farkýnýn ikinci kýsmý için sýfýrlandý
 		//üst scope'da determinantýn ilk parçasý yapýlyor 'yon' ve 'g' deðiþtiðinde ikinci parçasý yapýlýr (-'den sonra)		
-		yon = _row-1;
+		yon = _row - 1;
 	}
 	return det;
 }
 
 unsigned long long int matrixClass::calculateMinor(matrixClass* m, int r, int c) {
-	
+
 	//sýra ile recursive yapýp üst sýra minörlerini bul minör yardýmý ile det hesapla
-	matrixClass tempMat(m->row-1,m->row-1);
-	tempMat=matrixMinor(m, r, c);
-	if (tempMat.row == 3)	return sarrusDeterminant(tempMat.matrix,3,3);	//matris 3x3 kaldýysa direk sarrus ile det hesaplayýp return eder
+	matrixClass tempMat(m->row - 1, m->row - 1);
+	tempMat = matrixMinor(m, r, c);
+
+	if (tempMat.row == 3)	return sarrusDeterminant(tempMat.matrix, 3, 3);	//matris 3x3 kaldýysa direk sarrus ile det hesaplayýp return eder
 
 	// matris aþaðýdaki fonksiyona geldiðinde o da minör hesaplamak için tekrar bu fonksiyona (calculateMinor) göndericek ama bir boy daha küçük olucak
 	else {
@@ -278,17 +280,17 @@ unsigned long long int matrixClass::calculateMinor(matrixClass* m, int r, int c)
 
 
 matrixClass matrixClass::matrixMinor(matrixClass* m, int r, int c) {
-	
+
 	//bir boy küçük matris nesnesi oluþturuyoruz bu sayede matris'in tüm özelliklerine ulaþabiliyoruz
-	matrixClass* tempMat2 = new matrixClass(m->row - 1, m->row - 1);	
+	matrixClass* tempMat2 = new matrixClass(m->row - 1, m->row - 1);
 	int a = 0, b = 0;	//geçici matrisin boyutlarý
-	
+
 	for (int i = 0; i < tempMat2->row; i++)
 	{
 		for (int j = 0; j < tempMat2->row; j++)
 		{
 			if (i != r && j != c) {	//belirtilen satýr ve sütunlarý kaldýrýyoruz
-				tempMat2->matrix[a][b++] = m->matrix[i][j];	
+				tempMat2->matrix[a][b++] = m->matrix[i][j];
 			}
 		}
 		if (i != r)	a++;
@@ -298,12 +300,12 @@ matrixClass matrixClass::matrixMinor(matrixClass* m, int r, int c) {
 }
 unsigned long long int det = 0;
 int matrixClass::calculateDeterminant(matrixClass* m) {
-	
+
 	for (int i = 0; i < m->row; i++)
 	{
 		det += m->Cofactor(m, 0, i) * (m->matrix[0][i]);
 	}
 	return det;
-	
+
 }
 
