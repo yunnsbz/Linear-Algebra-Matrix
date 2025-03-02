@@ -14,7 +14,7 @@ int factor(int a) {
 	return b;
 }
 
-matrixClass::matrixClass(int r, int c) {	//matrix[satýr][sütun]
+MatrixCalculations::MatrixCalculations(int r, int c) {	//matrix[satýr][sütun]
 	row = r;
 	col = c;
 
@@ -26,7 +26,7 @@ matrixClass::matrixClass(int r, int c) {	//matrix[satýr][sütun]
 	}
 }
 
-matrixClass::~matrixClass() {
+MatrixCalculations::~MatrixCalculations() {
 	for (int i = 0; i < row; i++)
 	{
 		delete[] matrix[i];
@@ -34,7 +34,7 @@ matrixClass::~matrixClass() {
 	delete[] matrix;
 }
 
-matrixClass::matrixClass(const matrixClass& oth) {
+MatrixCalculations::MatrixCalculations(const MatrixCalculations& oth) {
 	row = oth.row;
 	col = oth.col;
 
@@ -55,15 +55,15 @@ matrixClass::matrixClass(const matrixClass& oth) {
 	}
 }
 
-int matrixClass::getRow() { return row; }
+int MatrixCalculations::getRow() { return row; }
 
-int matrixClass::getCol() { return col; }
+int MatrixCalculations::getCol() { return col; }
 
-void matrixClass::setValue(int r, int c, int value) {
+void MatrixCalculations::setValue(int r, int c, int value) {
 	matrix[row][col] = value;
 }
 
-void matrixClass::randomSet() {
+void MatrixCalculations::FillRandomValues() {
 	srand(time(0));
 	for (int i = 0; i < row; i++)
 	{
@@ -74,7 +74,7 @@ void matrixClass::randomSet() {
 	}
 }
 
-void matrixClass::birimMatrisYap() {
+void MatrixCalculations::birimMatrisYap() {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
@@ -85,7 +85,7 @@ void matrixClass::birimMatrisYap() {
 	}
 }
 
-void matrixClass::display() {
+void MatrixCalculations::display() {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
@@ -98,7 +98,7 @@ void matrixClass::display() {
 	cout << endl;
 }
 
-void matrixClass::addMatris(matrixClass& othMatris) {
+void MatrixCalculations::addMatris(MatrixCalculations& othMatris) {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
@@ -108,7 +108,7 @@ void matrixClass::addMatris(matrixClass& othMatris) {
 	}
 }
 
-void matrixClass::skalarMultiply(int skalar) {
+void MatrixCalculations::skalarMultiply(int skalar) {
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < col; j++)
@@ -118,7 +118,7 @@ void matrixClass::skalarMultiply(int skalar) {
 	}
 }
 
-void matrixClass::transpoz() {
+void MatrixCalculations::transpoz() {
 
 	//matrix 'i baþka bir matrise geçici olarak kopyalýyorum
 	int** tempMatrix = NULL;
@@ -151,7 +151,7 @@ void matrixClass::transpoz() {
 	delete[]tempMatrix;
 }
 
-void matrixClass::matrixMultiply(matrixClass& othMatris) {
+void MatrixCalculations::matrixMultiply(MatrixCalculations& othMatris) {
 
 	//matrix 'i baþka bir matrise geçici olarak kopyalýyorum
 	int** tempMatrix = NULL;
@@ -188,17 +188,17 @@ void matrixClass::matrixMultiply(matrixClass& othMatris) {
 	delete[]tempMatrix;
 }
 
-unsigned long long int matrixClass::Cofactor(matrixClass* m, int r, int c) {
+unsigned long long int MatrixCalculations::Cofactor(MatrixCalculations* m, int r, int c) {
 	return calculateMinor(m, r, c) * pow((-1), r + 1 + c);
 }
 
-int matrixClass::determinant() {
+int MatrixCalculations::Determinant() {
 	if (row != col) return -1;
 	if (row <= 3) return sarrusDeterminant(matrix, row, col);
 
 
 	else {
-		matrixClass tempMat(row, row);
+		MatrixCalculations tempMat(row, row);
 		int a = 0, b = 0;	//geçici matrisin boyutlarý
 		for (int i = 0; i < row; i++)
 		{
@@ -215,7 +215,7 @@ int matrixClass::determinant() {
 }
 
 
-int matrixClass::sarrusDeterminant(int** m, int _row, int _col) {
+int MatrixCalculations::sarrusDeterminant(int** m, int _row, int _col) {
 
 	if (_row > 3 || _col > 3) {
 		cout << "sarrus det. error";
@@ -257,11 +257,11 @@ int matrixClass::sarrusDeterminant(int** m, int _row, int _col) {
 	return det;
 }
 
-unsigned long long int matrixClass::calculateMinor(matrixClass* m, int r, int c) {
+unsigned long long int MatrixCalculations::calculateMinor(MatrixCalculations* m, int r, int c) {
 
 	//sýra ile recursive yapýp üst sýra minörlerini bul minör yardýmý ile det hesapla
-	matrixClass tempMat(m->row - 1, m->row - 1);
-	tempMat = matrixMinor(m, r, c);
+	MatrixCalculations tempMat(m->row - 1, m->row - 1);
+	tempMat = MatrixMinor(m, r, c);
 
 	if (tempMat.row == 3)	return sarrusDeterminant(tempMat.matrix, 3, 3);	//matris 3x3 kaldýysa direk sarrus ile det hesaplayýp return eder
 
@@ -279,10 +279,10 @@ unsigned long long int matrixClass::calculateMinor(matrixClass* m, int r, int c)
 */
 
 
-matrixClass matrixClass::matrixMinor(matrixClass* m, int r, int c) {
+MatrixCalculations MatrixCalculations::MatrixMinor(MatrixCalculations* m, int r, int c) {
 
 	//bir boy küçük matris nesnesi oluþturuyoruz bu sayede matris'in tüm özelliklerine ulaþabiliyoruz
-	matrixClass* tempMat2 = new matrixClass(m->row - 1, m->row - 1);
+	MatrixCalculations* tempMat2 = new MatrixCalculations(m->row - 1, m->row - 1);
 	int a = 0, b = 0;	//geçici matrisin boyutlarý
 
 	for (int i = 0; i < tempMat2->row; i++)
@@ -299,7 +299,7 @@ matrixClass matrixClass::matrixMinor(matrixClass* m, int r, int c) {
 	return (*tempMat2);
 }
 unsigned long long int det = 0;
-int matrixClass::calculateDeterminant(matrixClass* m) {
+int MatrixCalculations::calculateDeterminant(MatrixCalculations* m) {
 
 	for (int i = 0; i < m->row; i++)
 	{
